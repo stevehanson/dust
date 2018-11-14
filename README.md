@@ -1,24 +1,28 @@
-# README
+# Dust
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project is intended to house my personal data in a searchable way.
 
-Things you may want to cover:
+## Data sources
 
-* Ruby version
+### Evernote
 
-* System dependencies
+To import data from Evernote, select all notes in Evernote for Mac, then go to
+File->Export and export with tags. Then run
+`Evernote::Importer.new("path/to/export.enex")`. This will currently create
+duplicates so should be updated to only import new records.
 
-* Configuration
+### SMS
 
-* Database creation
+TODO. Backup iPhone using iTunes, and then locate the SQLLite DB with the text
+messages.
 
-* Database initialization
+### Other future integrations
 
-* How to run the test suite
+I would like to import or live-query from the following sources:
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Day One
+* Wunderlist
+* Bear
+* Google Calendar
+* Gmail (only message threads where I also interact)
+* Google Photos (API available, 10k req/day, no geotag info comes back)
