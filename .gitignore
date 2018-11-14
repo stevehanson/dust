@@ -7,6 +7,12 @@
 # Ignore bundler config.
 /.bundle
 
+# Ignore env variables file
+.env
+
+# Ignore local .pryrc, where you can define functions to be used in the console
+.pryrc
+
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-journal

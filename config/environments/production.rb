@@ -56,8 +56,20 @@ Rails.application.configure do
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
 
-  # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  # NOTE: this Redis instance has a LRU eviction policy. If Sidekiq is added, it
+  # should use a separate Redis instance with no eviction policy.
+  config.cache_store = :redis_cache_store, {
+    url: ENV.fetch("REDISCLOUD_URL"),
+    namespace: "cache",
+    error_handler: ->(method:, returning:, exception:) {
+      # Report errors to Sentry as warnings
+      Raven.capture_exception(
+        exception,
+        level: "warning",
+        tags: { method: method, returning: returning },
+      )
+    },
+  }
 
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
